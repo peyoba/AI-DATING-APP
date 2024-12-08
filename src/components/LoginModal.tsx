@@ -9,10 +9,14 @@ interface LoginModalProps {
   onSwitch: () => void;
 }
 
+interface FormData {
+  email: string;
+  password: string;
+}
+
 interface FormErrors {
-  email?: string;
-  password?: string;
-  general?: string;
+  email: string;
+  password: string;
 }
 
 export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSwitch }) => {
@@ -25,17 +29,20 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSwitc
   const [errors, setErrors] = useState<FormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
 
-  const validateForm = (): boolean => {
-    const newErrors: FormErrors = {};
-    
+  const validateForm = () => {
+    const newErrors: FormErrors = {
+      email: '',
+      password: ''
+    };
+
     const emailError = validateEmail(formData.email);
-    if (emailError) newErrors.email = emailError;
+    newErrors.email = emailError;
 
     const passwordError = validatePassword(formData.password);
-    if (passwordError) newErrors.password = passwordError;
+    newErrors.password = passwordError;
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return !emailError && !passwordError;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
