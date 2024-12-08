@@ -1,28 +1,27 @@
 .container {
   width: 100%;
-  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* 添加一些基础的间距控制 */
 .container > section {
-  margin-bottom: 2rem;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-/* 为相邻的浅色背景区块添加分隔 */
-.container > section:nth-child(even) {
-  background-color: #f8f9fa;
+.container > section:not(:first-child) {
+  min-height: auto;
+  padding: 4rem 0;
 }
 
-/* 确保内容区域不会太宽 */
-.container > section > * {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-/* 响应式调整 */
 @media (max-width: 768px) {
-  .container > section {
-    margin-bottom: 1rem;
+  .container > section:not(:first-child) {
+    padding: 2rem 0;
   }
 } 

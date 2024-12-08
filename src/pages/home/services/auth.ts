@@ -17,7 +17,6 @@ interface AuthResponse {
     id: string;
     nickname: string;
     email: string;
-    avatar?: string;
     gender: string;
   };
 }
@@ -32,33 +31,26 @@ class AuthError extends Error {
 export const authService = {
   async login(params: LoginParams): Promise<AuthResponse> {
     try {
-      // TODO: 替换为实际的API调用
-      const response = await new Promise<AuthResponse>((resolve, reject) => {
-        setTimeout(() => {
-          // 模拟API响应
-          if (params.email === 'test@example.com' && params.password === 'Test123') {
-            resolve({
-              token: 'mock_token',
-              user: {
-                id: '1',
-                nickname: '测试用户',
-                email: params.email,
-                gender: 'male'
-              }
-            });
-          } else {
-            reject(new AuthError('邮箱或密码错误'));
-          }
-        }, 1000);
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params),
       });
 
-      if (params.rememberMe) {
-        localStorage.setItem('auth_token', response.token);
-      } else {
-        sessionStorage.setItem('auth_token', response.token);
+      if (!response.ok) {
+        throw new AuthError('登录失败，请检查邮箱和密码');
       }
 
-      return response;
+      const data = await response.json();
+      if (params.rememberMe) {
+        localStorage.setItem('auth_token', data.token);
+      } else {
+        sessionStorage.setItem('auth_token', data.token);
+      }
+
+      return data;
     } catch (error) {
       if (error instanceof AuthError) {
         throw error;
@@ -69,28 +61,21 @@ export const authService = {
 
   async register(params: RegisterParams): Promise<AuthResponse> {
     try {
-      // TODO: 替换为实际的API调用
-      const response = await new Promise<AuthResponse>((resolve, reject) => {
-        setTimeout(() => {
-          // 模拟API响应
-          if (params.email.includes('@')) {
-            resolve({
-              token: 'mock_token',
-              user: {
-                id: '1',
-                nickname: params.nickname,
-                email: params.email,
-                gender: params.gender
-              }
-            });
-          } else {
-            reject(new AuthError('注册失败，邮箱已被使用'));
-          }
-        }, 1000);
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params),
       });
 
-      sessionStorage.setItem('auth_token', response.token);
-      return response;
+      if (!response.ok) {
+        throw new AuthError('注册失败，请稍后重试');
+      }
+
+      const data = await response.json();
+      sessionStorage.setItem('auth_token', data.token);
+      return data;
     } catch (error) {
       if (error instanceof AuthError) {
         throw error;
@@ -100,8 +85,6 @@ export const authService = {
   },
 
   async logout(): Promise<void> {
-    // TODO: 替换为实际的API调用
-    await new Promise(resolve => setTimeout(resolve, 500));
     localStorage.removeItem('auth_token');
     sessionStorage.removeItem('auth_token');
   },
@@ -111,22 +94,21 @@ export const authService = {
     if (!token) return null;
 
     try {
-      // TODO: 替换为实际的API调用
-      return await new Promise<AuthResponse>(resolve => {
-        setTimeout(() => {
-          resolve({
-            token,
-            user: {
-              id: '1',
-              nickname: '测试用户',
-              email: 'test@example.com',
-              gender: 'male'
-            }
-          });
-        }, 500);
+      const response = await fetch('/api/auth/check', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
+
+      if (!response.ok) {
+        throw new Error('Invalid token');
+      }
+
+      return await response.json();
     } catch {
+      localStorage.removeItem('auth_token');
+      sessionStorage.removeItem('auth_token');
       return null;
     }
-  }
+  },
 }; 

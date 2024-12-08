@@ -2,13 +2,7 @@
   background: white;
   border-radius: 12px;
   padding: 2rem;
-  box-shadow: 0 4px 12px var(--shadow-color);
-}
-
-.section h2 {
-  color: var(--text-color);
-  margin-bottom: 1rem;
-  font-size: 1.8rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .description {
@@ -23,36 +17,35 @@
   margin-bottom: 2rem;
 }
 
-.scoreCard,
-.analysisCard {
-  background: var(--background-secondary);
-  padding: 1.5rem;
+.scoreCard {
+  background: var(--background-color);
   border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
 
-.scoreCard h3,
-.analysisCard h3 {
+.scoreCard h3 {
   color: var(--text-color);
   margin-bottom: 1.5rem;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
+  text-align: center;
 }
 
 .scores {
-  display: grid;
-  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
 .scoreItem {
-  background: white;
-  padding: 1rem;
-  border-radius: 6px;
+  width: 100%;
 }
 
 .scoreHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.5rem;
 }
 
 .scoreHeader span {
@@ -62,21 +55,34 @@
 
 .score {
   color: var(--primary-color);
-  font-weight: 600;
 }
 
-.scoreBar {
+.progressBar {
+  width: 100%;
   height: 6px;
-  background: var(--background-tertiary);
+  background: var(--background-secondary);
   border-radius: 3px;
   overflow: hidden;
 }
 
-.scoreProgress {
+.progress {
   height: 100%;
-  background: var(--gradient-primary);
+  background: var(--primary-color);
   border-radius: 3px;
   transition: width 0.3s ease;
+}
+
+.analysisCard {
+  background: var(--background-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.analysisCard h3 {
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
 }
 
 .analysisCard p {
@@ -87,16 +93,17 @@
 .detailsGrid {
   display: grid;
   gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   margin-bottom: 2rem;
 }
 
 .advantagesCard,
 .challengesCard,
 .suggestionsCard {
-  background: var(--background-secondary);
-  padding: 1.5rem;
+  background: var(--background-color);
   border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
 
 .advantagesCard h3,
@@ -104,7 +111,7 @@
 .suggestionsCard h3 {
   color: var(--text-color);
   margin-bottom: 1rem;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 .advantagesCard ul,
@@ -133,32 +140,20 @@
   top: 8px;
   width: 6px;
   height: 6px;
+  background: var(--primary-color);
   border-radius: 50%;
 }
 
-.advantagesCard li::before {
-  background: var(--success-color);
-}
-
-.challengesCard li::before {
-  background: var(--warning-color);
-}
-
-.suggestionsCard li::before {
-  background: var(--primary-color);
-}
-
 .conclusion {
-  background: var(--background-secondary);
-  padding: 1.5rem;
-  border-radius: 8px;
   margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
 }
 
 .conclusion h3 {
   color: var(--text-color);
   margin-bottom: 1rem;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 .conclusion p {
@@ -171,29 +166,16 @@
     padding: 1.5rem;
   }
   
-  .section h2 {
-    font-size: 1.5rem;
+  .potentialGrid,
+  .detailsGrid {
+    gap: 1.5rem;
   }
   
   .scoreCard,
   .analysisCard,
   .advantagesCard,
   .challengesCard,
-  .suggestionsCard,
-  .conclusion {
+  .suggestionsCard {
     padding: 1rem;
-  }
-  
-  .scoreCard h3,
-  .analysisCard h3,
-  .advantagesCard h3,
-  .challengesCard h3,
-  .suggestionsCard h3,
-  .conclusion h3 {
-    font-size: 1.2rem;
-  }
-  
-  .scoreItem {
-    padding: 0.8rem;
   }
 } 

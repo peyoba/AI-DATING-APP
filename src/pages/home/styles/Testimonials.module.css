@@ -1,5 +1,6 @@
 .container {
   padding: 4rem 0;
+  background: var(--background-color);
 }
 
 .grid {
@@ -12,10 +13,10 @@
 }
 
 .card {
-  background: white;
+  background: var(--background-secondary);
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px var(--shadow-color);
   transition: transform 0.3s ease;
 }
 
@@ -43,26 +44,26 @@
 
 .info h3 {
   margin: 0;
-  color: #333;
+  color: var(--text-color);
   font-size: 1.1rem;
 }
 
 .info span {
-  color: #666;
+  color: var(--text-secondary);
   font-size: 0.9rem;
 }
 
 .content {
-  color: #444;
+  color: var(--text-color);
   line-height: 1.6;
   margin-bottom: 1rem;
 }
 
 .highlight {
   padding: 0.5rem 1rem;
-  background: #f0f7ff;
+  background: var(--background-secondary);
   border-radius: 6px;
-  color: #0066cc;
+  color: var(--primary-color);
   font-size: 0.9rem;
 }
 

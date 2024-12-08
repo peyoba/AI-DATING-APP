@@ -1,44 +1,53 @@
 import React from 'react';
-import { Layout } from '../home/components/Layout';
-import PersonalityTest from './components/PersonalityTest';
 import ValueAssessment from './components/ValueAssessment';
-import InterestAnalysis from './components/InterestAnalysis';
 import LifestyleEvaluation from './components/LifestyleEvaluation';
+import PersonalityTest from './components/PersonalityTest';
+import InterestAnalysis from './components/InterestAnalysis';
 import RelationshipPotential from './components/RelationshipPotential';
-import styles from './styles/Assessment.module.css';
+
+const styles = {
+  container: {
+    maxWidth: '48rem',
+    margin: '0 auto',
+    padding: '2rem 1rem',
+    backgroundColor: '#ffe0eb',
+    minHeight: '100vh',
+  },
+  header: {
+    textAlign: 'center' as const,
+    marginBottom: '2rem',
+  },
+  title: {
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    color: '#ff1493',
+    marginBottom: '1rem',
+  },
+  subtitle: {
+    color: '#666',
+  },
+};
 
 const AssessmentPage: React.FC = () => {
   return (
-    <Layout>
-      <div className={styles.container}>
-        <header className={styles.header}>
-          <h1>个人测评分析</h1>
-          <p>深入了解自己，找到最适合的伴侣</p>
-        </header>
-        
-        <main className={styles.main}>
-          <div className={styles.section}>
-            <PersonalityTest />
-          </div>
-          
-          <div className={styles.section}>
-            <ValueAssessment />
-          </div>
-          
-          <div className={styles.section}>
-            <InterestAnalysis />
-          </div>
-          
-          <div className={styles.section}>
-            <LifestyleEvaluation />
-          </div>
-          
-          <div className={styles.section}>
-            <RelationshipPotential />
-          </div>
-        </main>
-      </div>
-    </Layout>
+    <div style={styles.container}>
+      <header style={styles.header}>
+        <h1 style={styles.title}>
+          个人测评分析
+        </h1>
+        <p style={styles.subtitle}>
+          深入了解自己，找到最适合的伴侣
+        </p>
+      </header>
+      
+      <main>
+        <ValueAssessment />
+        <LifestyleEvaluation />
+        <PersonalityTest />
+        <InterestAnalysis />
+        <RelationshipPotential />
+      </main>
+    </div>
   );
 };
 

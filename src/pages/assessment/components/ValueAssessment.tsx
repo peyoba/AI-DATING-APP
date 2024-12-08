@@ -1,81 +1,121 @@
 import React from 'react';
-import styles from '../styles/ValueAssessment.module.css';
+
+const styles = {
+  card: {
+    backgroundColor: 'white',
+    borderRadius: '0.5rem',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    padding: '2rem',
+    marginBottom: '2rem',
+  },
+  title: {
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    color: '#ff1493',
+    textAlign: 'center' as const,
+    marginBottom: '1.5rem',
+  },
+  description: {
+    textAlign: 'center' as const,
+    marginBottom: '2rem',
+    color: '#666',
+  },
+  itemContainer: {
+    marginBottom: '1.5rem',
+  },
+  itemHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '0.5rem',
+  },
+  itemName: {
+    fontWeight: '500',
+    color: '#444',
+  },
+  itemScore: {
+    color: '#ff1493',
+    fontWeight: '600',
+  },
+  progressBar: {
+    width: '100%',
+    height: '0.75rem',
+    backgroundColor: 'rgba(255, 143, 171, 0.1)',
+    borderRadius: '9999px',
+    overflow: 'hidden',
+  },
+  progressFill: {
+    height: '100%',
+    background: 'linear-gradient(135deg, #ff8fab 0%, #ff1493 100%)',
+    borderRadius: '9999px',
+    transition: 'width 300ms',
+  },
+  analysis: {
+    marginTop: '2rem',
+    paddingTop: '1.5rem',
+    borderTop: '1px solid #f3f4f6',
+  },
+  analysisTitle: {
+    fontSize: '1.125rem',
+    fontWeight: '600',
+    color: '#ff1493',
+    marginBottom: '1rem',
+  },
+  analysisText: {
+    color: '#666',
+    lineHeight: '1.75',
+  },
+};
 
 const ValueAssessment: React.FC = () => {
   const values = [
-    {
-      category: '家庭观',
-      items: [
-        { name: '家庭责任', score: 90 },
-        { name: '亲子关系', score: 85 },
-        { name: '婚姻期待', score: 80 }
-      ]
-    },
-    {
-      category: '事业观',
-      items: [
-        { name: '职业发展', score: 85 },
-        { name: '工作与生活平衡', score: 75 },
-        { name: '个人成就', score: 80 }
-      ]
-    },
-    {
-      category: '生活观',
-      items: [
-        { name: '生活品质', score: 85 },
-        { name: '休闲方式', score: 70 },
-        { name: '消费习惯', score: 75 }
-      ]
-    }
+    { name: '家庭观念', score: 90 },
+    { name: '事业发展', score: 85 },
+    { name: '生活品质', score: 80 },
+    { name: '个人成长', score: 88 },
+    { name: '社会责任', score: 75 }
   ];
 
   return (
-    <section className={styles.section}>
-      <h2>价值观测评</h2>
-      <div className={styles.description}>
-        <p>深入分析您的核心价值观念和生活态度</p>
+    <section style={styles.card}>
+      <h2 style={styles.title}>
+        价值观测评
+      </h2>
+      
+      <div style={styles.description}>
+        <p>了解您的核心价值观倾向</p>
       </div>
 
-      <div className={styles.valuesContainer}>
-        {values.map((category) => (
-          <div key={category.category} className={styles.categoryCard}>
-            <h3>{category.category}</h3>
-            <div className={styles.itemsGrid}>
-              {category.items.map((item) => (
-                <div key={item.name} className={styles.valueItem}>
-                  <div className={styles.itemHeader}>
-                    <span>{item.name}</span>
-                    <span className={styles.score}>{item.score}%</span>
-                  </div>
-                  <div className={styles.progressBar}>
-                    <div 
-                      className={styles.progress}
-                      style={{ width: `${item.score}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
+      <div>
+        {values.map((value) => (
+          <div key={value.name} style={styles.itemContainer}>
+            <div style={styles.itemHeader}>
+              <span style={styles.itemName}>{value.name}</span>
+              <span style={styles.itemScore}>
+                {value.score}%
+              </span>
+            </div>
+            <div style={styles.progressBar}>
+              <div
+                style={{
+                  ...styles.progressFill,
+                  width: `${value.score}%`,
+                }}
+              />
             </div>
           </div>
         ))}
       </div>
 
-      <div className={styles.analysis}>
-        <h3>价值观分析</h3>
-        <p>
-          您的价值观体系较为完整,特别注重家庭和事业的平衡发展。在家庭观方面,
-          您对家庭责任和亲子关系有较高的重视度。在事业发展上,您追求个人成就的
-          同时也注重工作与生活的平衡。生活品质和休闲方式的选择显示出您是一个
-          懂得享受生活的人。
+      <div style={styles.analysis}>
+        <h3 style={styles.analysisTitle}>
+          价值观分析
+        </h3>
+        <p style={styles.analysisText}>
+          您的价值观体系较为均衡，特别重视家庭观念和个人成长。
+          在事业发展和生活品质方面也保持着积极的态度。
+          这种价值观有助于建立稳定且有发展潜力的关系。
         </p>
-        <div className={styles.compatibility}>
-          <h4>匹配建议</h4>
-          <ul>
-            <li>寻找同样重视家庭的伴侣</li>
-            <li>与理解工作与生活平衡重要性的人更容易相处</li>
-            <li>在生活方式上寻找有共同追求的伴侣</li>
-          </ul>
-        </div>
       </div>
     </section>
   );

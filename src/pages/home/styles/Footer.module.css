@@ -1,5 +1,5 @@
 .footer {
-  background: #f8f9fa;
+  background: var(--background-secondary);
   padding: 4rem 0 2rem;
   margin-top: 4rem;
 }
@@ -18,7 +18,7 @@
 }
 
 .section h3 {
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 1rem;
 }
 
@@ -33,12 +33,12 @@
 }
 
 .section a {
-  color: #666;
+  color: var(--text-secondary);
   text-decoration: none;
 }
 
 .section a:hover {
-  color: #0066cc;
+  color: var(--primary-color);
 }
 
 .social {
@@ -47,15 +47,15 @@
 }
 
 .social a {
-  color: #666;
+  color: var(--text-secondary);
   text-decoration: none;
 }
 
 .bottom {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--border-color);
   padding-top: 2rem;
   text-align: center;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 @media (max-width: 768px) {

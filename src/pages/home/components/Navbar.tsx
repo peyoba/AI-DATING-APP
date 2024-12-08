@@ -1,115 +1,41 @@
-import React, { useState } from 'react';
-import { MobileMenu } from './MobileMenu';
-import { LoginModal } from './LoginModal';
-import { RegisterModal } from './RegisterModal';
-import { UserDropdown } from './UserDropdown';
-import { useUser } from '../contexts/UserContext';
+import React from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styles from '../styles/Navbar.module.css';
 
 export const Navbar: React.FC = () => {
-  const { user, logout } = useUser();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
-  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const router = useRouter();
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-    } catch (error) {
-      console.error('Logout failed:', error);
-    }
-  };
-
-  const handleLoginClick = () => {
-    setIsLoginModalOpen(true);
-  };
-
-  const handleRegisterClick = () => {
-    setIsRegisterModalOpen(true);
-  };
-
-  const handleSwitchToRegister = () => {
-    setIsLoginModalOpen(false);
-    setIsRegisterModalOpen(true);
-  };
-
-  const handleSwitchToLogin = () => {
-    setIsRegisterModalOpen(false);
-    setIsLoginModalOpen(true);
+  const handleNavigation = (path: string) => {
+    console.log('Navigating to:', path);
+    router.push(path);
   };
 
   return (
-    <>
-      <nav className={styles.navbar}>
-        <div className={styles.container}>
-          <div className={styles.logo}>
-            <h1>AI婚恋</h1>
-          </div>
-          <div className={styles.menu}>
-            <a href="/" className={styles.active}>首页</a>
-            <a href="/matching">智能匹配</a>
-            <a href="/community">社区</a>
-            <a href="/about">关于我们</a>
-          </div>
-          <div className={styles.auth}>
-            {user ? (
-              <div className={styles.userMenu}>
-                <button 
-                  className={styles.avatarButton}
-                  onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
-                >
-                  <img 
-                    src={user.avatar || '/images/default-avatar.png'} 
-                    alt={user.nickname}
-                    className={styles.avatar}
-                  />
-                </button>
-                <UserDropdown
-                  isOpen={isUserDropdownOpen}
-                  onClose={() => setIsUserDropdownOpen(false)}
-                  onLogout={handleLogout}
-                  nickname={user.nickname}
-                />
-              </div>
-            ) : (
-              <>
-                <button onClick={handleLoginClick} className={styles.login}>
-                  登录
-                </button>
-                <button onClick={handleRegisterClick} className={styles.register}>
-                  免费注册
-                </button>
-              </>
-            )}
-          </div>
+    <nav className={styles.navbar}>
+      <div className={styles.container}>
+        <Link href="/home" className={styles.logo}>
+          <h1>AI婚恋</h1>
+        </Link>
+        <div className={styles.menu}>
+          <Link href="/home" className={styles.link}>
+            首页
+          </Link>
           <button 
-            className={styles.menuButton}
-            onClick={() => setIsMobileMenuOpen(true)}
+            onClick={() => handleNavigation('/assessment')}
+            className={styles.link}
+            style={{ background: 'none', border: 'none', cursor: 'pointer' }}
           >
-            ☰
+            测试分析
           </button>
+          <Link href="/matching" className={styles.link}>
+            智能匹配
+          </Link>
+          <Link href="/about" className={styles.link}>
+            关于我们
+          </Link>
         </div>
-      </nav>
-
-      <LoginModal 
-        isOpen={isLoginModalOpen}
-        onClose={() => setIsLoginModalOpen(false)}
-        onSwitch={handleSwitchToRegister}
-      />
-
-      <RegisterModal
-        isOpen={isRegisterModalOpen}
-        onClose={() => setIsRegisterModalOpen(false)}
-        onSwitch={handleSwitchToLogin}
-      />
-
-      <MobileMenu 
-        isOpen={isMobileMenuOpen} 
-        onClose={() => setIsMobileMenuOpen(false)}
-        onLoginClick={handleLoginClick}
-        onRegisterClick={handleRegisterClick}
-      />
-    </>
+      </div>
+    </nav>
   );
 }; 
