@@ -1,15 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // 优化生产环境配置
+  swcMinify: true,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  // 静态导出配置
+  output: 'export',
+  // 图片配置
   images: {
-    domains: ['localhost'],
-    // 如果使用外部图片服务，需要在这里添加域名
+    unoptimized: true,
   },
-  // 如果需要支持其他语言，可以添加i18n配置
-  i18n: {
-    locales: ['zh'],
-    defaultLocale: 'zh',
-  },
+  // 禁用 i18n
+  i18n: null,
 };
 
 module.exports = nextConfig; 
