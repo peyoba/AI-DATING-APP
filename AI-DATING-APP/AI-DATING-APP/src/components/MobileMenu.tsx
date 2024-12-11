@@ -38,16 +38,16 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
             <span className={styles.nickname}>{user.nickname}</span>
           </div>
         )}
-        <nav>
-          <a href="/" className={styles.active}>首页</a>
-          <a href="/matching">智能匹配</a>
-          <a href="/community">社区</a>
-          <a href="/about">关于我们</a>
+        <nav className={styles.navigation}>
+          <a href="/" className={`${styles.navigationLink} ${styles.active}`}>首页</a>
+          <a href="/matching" className={styles.navigationLink}>智能匹配</a>
+          <a href="/community" className={styles.navigationLink}>社区</a>
+          <a href="/about" className={styles.navigationLink}>关于我们</a>
           {user && (
             <>
-              <a href="/profile">个人资料</a>
-              <a href="/matches">我的匹配</a>
-              <a href="/settings">账号设置</a>
+              <a href="/profile" className={styles.navigationLink}>个人资料</a>
+              <a href="/matches" className={styles.navigationLink}>我的匹配</a>
+              <a href="/settings" className={styles.navigationLink}>账号设置</a>
               <button onClick={handleLogout} className={styles.logoutButton}>
                 退出登录
               </button>

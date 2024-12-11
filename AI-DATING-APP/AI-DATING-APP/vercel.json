@@ -26,6 +26,12 @@
       ]
     }
   ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ],
   "env": {
     "NEXT_PUBLIC_API_URL": "https://ai-dating-app-opc9.vercel.app/api",
     "NEXT_PUBLIC_APP_URL": "https://ai-dating-app-opc9.vercel.app",

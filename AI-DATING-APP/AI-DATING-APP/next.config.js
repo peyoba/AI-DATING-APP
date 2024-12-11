@@ -14,11 +14,6 @@ const nextConfig = {
     domains: ['ai-dating-app-opc9.vercel.app'],
     unoptimized: true,
   },
-  // 环境变量
-  env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
-    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
-  },
   // 输出优化
   output: 'standalone',
   compress: true,
@@ -28,22 +23,26 @@ const nextConfig = {
       {
         source: '/api/:path*',
         destination: '/api/:path*',
+      },
+      {
+        source: '/:path*',
+        destination: '/',
       }
     ];
   },
-  // webpack配置
-  webpack: (config, { dev, isServer }) => {
-    // 优化构建
-    if (!dev && !isServer) {
-      Object.assign(config.resolve.alias, {
-        'react/jsx-runtime': 'preact/compat/jsx-runtime',
-        react: 'preact/compat',
-        'react-dom/test-utils': 'preact/test-utils',
-        'react-dom': 'preact/compat',
-      });
-    }
-    return config;
+  // 处理 404
+  async redirects() {
+    return [
+      {
+        source: '/404',
+        destination: '/',
+        permanent: false,
+      }
+    ];
   },
+  experimental: {
+    esmExternals: 'loose'
+  }
 };
 
 module.exports = nextConfig; 

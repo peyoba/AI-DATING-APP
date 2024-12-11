@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { validateEmail, validatePassword, validateNickname } from '../utils/validation';
 import { useUser } from '../contexts/UserContext';
 import styles from '../styles/LoginModal.module.css';
@@ -9,6 +9,15 @@ interface RegisterModalProps {
   onSwitch: () => void;
 }
 
+interface FormData {
+  nickname: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  gender: string;
+  agreement: boolean;
+}
+
 interface FormErrors {
   nickname?: string;
   email?: string;
@@ -16,12 +25,11 @@ interface FormErrors {
   confirmPassword?: string;
   gender?: string;
   agreement?: string;
-  general?: string;
 }
 
 export const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, onSwitch }) => {
   const { register } = useUser();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     nickname: '',
     email: '',
     password: '',
@@ -29,8 +37,17 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, o
     gender: '',
     agreement: false
   });
+
   const [errors, setErrors] = useState<FormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -60,7 +77,7 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, o
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
@@ -74,9 +91,11 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, o
       });
       onClose();
     } catch (error) {
-      setErrors({ 
-        general: error instanceof Error ? error.message : '注册失败，请稍后重试'
-      });
+      console.error('Registration failed:', error);
+      setErrors(prev => ({
+        ...prev,
+        submit: '注册失败，请重试'
+      }));
     } finally {
       setIsLoading(false);
     }
@@ -85,149 +104,125 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, o
   if (!isOpen) return null;
 
   return (
-    <div className={styles.overlay} onClick={onClose}>
-      <div className={styles.modal} onClick={e => e.stopPropagation()}>
-        <button 
-          className={styles.closeButton} 
-          onClick={onClose}
-          aria-label="关闭"
-        >
-          ✕
-        </button>
-        <h2>注册</h2>
-        {errors.general && (
-          <div className={styles.error}>{errors.general}</div>
-        )}
+    <div className={styles.modal}>
+      <div className={styles.overlay} onClick={onClose} />
+      <div className={styles.content}>
+        <h2>注册账号</h2>
         <form onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
             <label htmlFor="nickname">昵称</label>
             <input
               type="text"
               id="nickname"
+              name="nickname"
               value={formData.nickname}
-              onChange={e => setFormData(prev => ({ ...prev, nickname: e.target.value }))}
+              onChange={handleInputChange}
               className={errors.nickname ? styles.inputError : ''}
               disabled={isLoading}
             />
-            {errors.nickname && (
-              <span className={styles.errorText}>{errors.nickname}</span>
-            )}
+            {errors.nickname && <span className={styles.error}>{errors.nickname}</span>}
           </div>
+
           <div className={styles.formGroup}>
             <label htmlFor="email">邮箱</label>
             <input
               type="email"
               id="email"
+              name="email"
               value={formData.email}
-              onChange={e => setFormData(prev => ({ ...prev, email: e.target.value }))}
+              onChange={handleInputChange}
               className={errors.email ? styles.inputError : ''}
               disabled={isLoading}
             />
-            {errors.email && (
-              <span className={styles.errorText}>{errors.email}</span>
-            )}
+            {errors.email && <span className={styles.error}>{errors.email}</span>}
           </div>
+
           <div className={styles.formGroup}>
             <label htmlFor="password">密码</label>
             <input
               type="password"
               id="password"
+              name="password"
               value={formData.password}
-              onChange={e => setFormData(prev => ({ ...prev, password: e.target.value }))}
+              onChange={handleInputChange}
               className={errors.password ? styles.inputError : ''}
               disabled={isLoading}
             />
-            {errors.password && (
-              <span className={styles.errorText}>{errors.password}</span>
-            )}
+            {errors.password && <span className={styles.error}>{errors.password}</span>}
           </div>
+
           <div className={styles.formGroup}>
             <label htmlFor="confirmPassword">确认密码</label>
             <input
               type="password"
               id="confirmPassword"
+              name="confirmPassword"
               value={formData.confirmPassword}
-              onChange={e => setFormData(prev => ({ ...prev, confirmPassword: e.target.value }))}
+              onChange={handleInputChange}
               className={errors.confirmPassword ? styles.inputError : ''}
               disabled={isLoading}
             />
-            {errors.confirmPassword && (
-              <span className={styles.errorText}>{errors.confirmPassword}</span>
-            )}
+            {errors.confirmPassword && <span className={styles.error}>{errors.confirmPassword}</span>}
           </div>
+
           <div className={styles.formGroup}>
             <label>性别</label>
             <div className={styles.radioGroup}>
-              <label className={styles.radio}>
+              <label>
                 <input
                   type="radio"
                   name="gender"
                   value="male"
                   checked={formData.gender === 'male'}
-                  onChange={e => setFormData(prev => ({ ...prev, gender: e.target.value }))}
+                  onChange={handleInputChange}
                   disabled={isLoading}
                 />
                 <span>男</span>
               </label>
-              <label className={styles.radio}>
+              <label>
                 <input
                   type="radio"
                   name="gender"
                   value="female"
                   checked={formData.gender === 'female'}
-                  onChange={e => setFormData(prev => ({ ...prev, gender: e.target.value }))}
+                  onChange={handleInputChange}
                   disabled={isLoading}
                 />
                 <span>女</span>
               </label>
             </div>
-            {errors.gender && (
-              <span className={styles.errorText}>{errors.gender}</span>
-            )}
+            {errors.gender && <span className={styles.error}>{errors.gender}</span>}
           </div>
+
           <div className={styles.formGroup}>
             <label className={styles.checkbox}>
               <input
                 type="checkbox"
+                name="agreement"
                 checked={formData.agreement}
-                onChange={e => setFormData(prev => ({ ...prev, agreement: e.target.checked }))}
+                onChange={handleInputChange}
                 disabled={isLoading}
               />
-              <span>
-                我已阅读并同意
-                <a href="/terms" target="_blank" className={styles.link}>
-                  《用户协议》
-                </a>
-                和
-                <a href="/privacy" target="_blank" className={styles.link}>
-                  《隐私政策》
-                </a>
-              </span>
+              <span>我已阅读并同意<a href="/terms">用户协议</a></span>
             </label>
-            {errors.agreement && (
-              <span className={styles.errorText}>{errors.agreement}</span>
-            )}
+            {errors.agreement && <span className={styles.error}>{errors.agreement}</span>}
           </div>
-          <div className={styles.formActions}>
-            <button 
-              type="submit" 
-              className={`${styles.submitButton} ${isLoading ? styles.loading : ''}`}
-              disabled={isLoading}
-            >
-              {isLoading ? '注册中...' : '注册'}
-            </button>
-          </div>
-        </form>
-        <div className={styles.switchPrompt}>
-          已有账号？
-          <button 
-            onClick={onSwitch} 
-            className={styles.switchButton}
+
+          <button
+            type="submit"
+            className={styles.submitButton}
             disabled={isLoading}
           >
+            {isLoading ? '注册中...' : '注册'}
+          </button>
+        </form>
+
+        <p className={styles.switchMode}>
+          已有账号？
+          <button onClick={onSwitch} disabled={isLoading}>
             立即登录
           </button>
-        </div>
+        </p>
       </div>
     </div>
   );
