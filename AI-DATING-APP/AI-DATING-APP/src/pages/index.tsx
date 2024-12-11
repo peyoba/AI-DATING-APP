@@ -1,8 +1,15 @@
 import React from 'react';
-import HomePage from '@/components/HomePage/index';
+import dynamic from 'next/dynamic';
+
+const HomePage = dynamic(() => import('@/components/HomePage'), {
+  ssr: true,
+  loading: () => <div>Loading...</div>
+});
 
 export default function Home() {
   return (
-    <HomePage />
+    <div>
+      <HomePage />
+    </div>
   );
 } 
