@@ -1,56 +1,79 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { authService } from '../services/auth';
 
 interface User {
   id: string;
+  nickname: string;
   email: string;
-  name?: string;
+  avatar?: string;
+  gender: string;
 }
 
 interface UserContextType {
   user: User | null;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
   isLoading: boolean;
+  login: (email: string, password: string, rememberMe?: boolean) => Promise<void>;
+  register: (params: {
+    nickname: string;
+    email: string;
+    password: string;
+    gender: string;
+  }) => Promise<void>;
+  logout: () => Promise<void>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export function UserProvider({ children }: { children: ReactNode }) {
+export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const login = async (email: string, password: string) => {
-    setIsLoading(true);
-    try {
-      // TODO: 实现实际的登录逻辑
-      // 这里暂时模拟登录
-      setUser({
-        id: '1',
-        email: email,
-      });
-    } catch (error) {
-      console.error('Login failed:', error);
-      throw error;
-    } finally {
-      setIsLoading(false);
-    }
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await authService.checkAuth();
+        if (response) {
+          setUser(response.user);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
+  const login = async (email: string, password: string, rememberMe = false) => {
+    const response = await authService.login({ email, password, rememberMe });
+    setUser(response.user);
   };
 
-  const logout = () => {
+  const register = async (params: {
+    nickname: string;
+    email: string;
+    password: string;
+    gender: string;
+  }) => {
+    const response = await authService.register(params);
+    setUser(response.user);
+  };
+
+  const logout = async () => {
+    await authService.logout();
     setUser(null);
   };
 
   return (
-    <UserContext.Provider value={{ user, login, logout, isLoading }}>
+    <UserContext.Provider value={{ user, isLoading, login, register, logout }}>
       {children}
     </UserContext.Provider>
   );
-}
+};
 
-export function useUser() {
+export const useUser = () => {
   const context = useContext(UserContext);
   if (context === undefined) {
     throw new Error('useUser must be used within a UserProvider');
   }
   return context;
-} 
+}; 

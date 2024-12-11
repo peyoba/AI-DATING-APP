@@ -5,18 +5,14 @@ import styles from '../styles/ProductIntro.module.css';
 export const ProductIntro: React.FC = () => {
   const router = useRouter();
 
-  const handleStartTest = async () => {
-    try {
-      await router.push('/assessment');
-    } catch (error) {
-      console.error('Navigation failed:', error);
-      // 添加用户提示
-    }
+  const handleStartTest = () => {
+    console.log('Navigating to assessment page...');
+    router.push('/assessment');
   };
 
   return (
     <section className={styles.container}>
-      <h2>AI婚恋契合度预测平台</h2>
+      <h1 className={styles.title}>AI婚恋契合度预测平台</h1>
       <p className={styles.description}>
         基于AI的智能婚恋关系评估平台，通过科学的模型算法，帮助您更好地了解和经营感情关系
       </p>
@@ -24,7 +20,7 @@ export const ProductIntro: React.FC = () => {
         className={styles.startButton}
         onClick={handleStartTest}
       >
-        开始测试
+        <span>开始测试</span>
       </button>
       <div className={styles.features}>
         <div className={styles.feature}>

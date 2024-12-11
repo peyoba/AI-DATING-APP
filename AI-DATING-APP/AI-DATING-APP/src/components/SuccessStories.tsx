@@ -13,21 +13,21 @@ const stories: Story[] = [
   {
     title: '缘分天注定',
     description: '通过AI匹配发现我们有90%以上的兴趣爱好重合，现在已经在一起两年了。',
-    image: '/images/couple1.jpg',
+    image: 'https://picsum.photos/400/300?random=1',
     matchRate: '95%',
     duration: '2年'
   },
   {
     title: '最佳拍档',
     description: '性格互补，生活习惯契合度高，让我们的相处非常融洽。',
-    image: '/images/couple2.jpg',
+    image: 'https://picsum.photos/400/300?random=2',
     matchRate: '92%',
     duration: '1年'
   },
   {
     title: '命中注定',
     description: 'AI算法准确预测了我们的价值观契合度，让我们避免了很多潜在矛盾。',
-    image: '/images/couple3.jpg',
+    image: 'https://picsum.photos/400/300?random=3',
     matchRate: '89%',
     duration: '1.5年'
   }

@@ -7,7 +7,6 @@ import LifestyleEvaluation from './components/LifestyleEvaluation';
 import PersonalityTest from './components/PersonalityTest';
 import InterestAnalysis from './components/InterestAnalysis';
 import RelationshipPotential from './components/RelationshipPotential';
-import './styles/AssessmentPage.module.css';
 
 const styles = {
   container: {
@@ -35,10 +34,10 @@ const styles = {
 const AssessmentPage: React.FC = () => {
   return (
     <AssessmentProvider>
-      <div className={styles.container}>
-        <header className={styles.header}>
-          <h1>个人测评分析</h1>
-          <p>深入了解自己，找到最适合的伴侣</p>
+      <div style={styles.container}>
+        <header style={styles.header}>
+          <h1 style={styles.title}>个人测评分析</h1>
+          <p style={styles.subtitle}>深入了解自己，找到最适合的伴侣</p>
         </header>
         
         <Suspense fallback={<Loading />}>

@@ -1,22 +1,26 @@
-// 邮箱验证
 export const validateEmail = (email: string): string | null => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!email) return '邮箱不能为空';
-  if (!emailRegex.test(email)) return '请输入有效的邮箱地址';
-  return '';
+  if (!email) return '请输入邮箱';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return '请输入有效的邮箱地址';
+  }
+  return null;
 };
 
-// 密码验证
-export const validatePassword = (password: string): string => {
-  if (!password) return '密码不能为空';
-  if (password.length < 8) return '密码长度至少8位';
-  
-  const hasLetter = /[A-Za-z]/.test(password);
-  const hasNumber = /\d/.test(password);
-  
-  if (!hasLetter || !hasNumber) {
-    return '密码必须包含字母和数字';
+export const validatePassword = (password: string): string | null => {
+  if (!password) return '请输入密码';
+  if (password.length < 6) {
+    return '密码长度不能少于6位';
   }
-  
-  return '';
+  if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) {
+    return '密码必须包含大小写字母和数字';
+  }
+  return null;
+};
+
+export const validateNickname = (nickname: string): string | null => {
+  if (!nickname) return '请输入昵称';
+  if (nickname.length < 2 || nickname.length > 20) {
+    return '昵称长度应在2-20个字符之间';
+  }
+  return null;
 }; 
