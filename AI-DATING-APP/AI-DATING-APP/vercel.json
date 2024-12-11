@@ -1,4 +1,16 @@
 {
   "version": 2,
-  "rootDirectory": "ai-dating-app-new"
+  "rootDirectory": "ai-dating-app-new",
+  "builds": [
+    {
+      "src": "ai-dating-app-new/package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
 } 

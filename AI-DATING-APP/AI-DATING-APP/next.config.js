@@ -6,8 +6,6 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  // 静态导出配置
-  output: 'export',
   // 图片配置
   images: {
     unoptimized: true,
