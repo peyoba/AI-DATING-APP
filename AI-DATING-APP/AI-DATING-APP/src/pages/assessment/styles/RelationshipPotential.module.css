@@ -1,0 +1,181 @@
+.section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.description {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.potentialGrid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  margin-bottom: 2rem;
+}
+
+.scoreCard {
+  background: var(--background-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.scoreCard h3 {
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.scores {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.scoreItem {
+  width: 100%;
+}
+
+.scoreHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.scoreHeader span {
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.score {
+  color: var(--primary-color);
+}
+
+.progressBar {
+  width: 100%;
+  height: 6px;
+  background: var(--background-secondary);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: var(--primary-color);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.analysisCard {
+  background: var(--background-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.analysisCard h3 {
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.analysisCard p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.detailsGrid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-bottom: 2rem;
+}
+
+.advantagesCard,
+.challengesCard,
+.suggestionsCard {
+  background: var(--background-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.advantagesCard h3,
+.challengesCard h3,
+.suggestionsCard h3 {
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.advantagesCard ul,
+.challengesCard ul,
+.suggestionsCard ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.advantagesCard li,
+.challengesCard li,
+.suggestionsCard li {
+  color: var(--text-secondary);
+  margin-bottom: 0.8rem;
+  padding-left: 1.5rem;
+  position: relative;
+  line-height: 1.5;
+}
+
+.advantagesCard li::before,
+.challengesCard li::before,
+.suggestionsCard li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  background: var(--primary-color);
+  border-radius: 50%;
+}
+
+.conclusion {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+}
+
+.conclusion h3 {
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.conclusion p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 1.5rem;
+  }
+  
+  .potentialGrid,
+  .detailsGrid {
+    gap: 1.5rem;
+  }
+  
+  .scoreCard,
+  .analysisCard,
+  .advantagesCard,
+  .challengesCard,
+  .suggestionsCard {
+    padding: 1rem;
+  }
+} 

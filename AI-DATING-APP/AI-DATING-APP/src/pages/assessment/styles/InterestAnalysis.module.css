@@ -1,0 +1,156 @@
+.section {
+  background: var(--background-color);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.description {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.interestsGrid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.categoryCard {
+  background: var(--background-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.categoryCard h3 {
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.interestItem {
+  background: var(--background-secondary);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.itemHeader {
+  margin-bottom: 1rem;
+}
+
+.itemInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.itemName {
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.itemLevel {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.progressBar {
+  width: 100%;
+  height: 6px;
+  background: var(--background-secondary);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: var(--primary-color);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  background: var(--background-color);
+  color: var(--text-secondary);
+  padding: 0.2rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+.analysis {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.analysis h3 {
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.analysis p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.suggestions h4 {
+  color: var(--text-color);
+  margin-bottom: 0.8rem;
+}
+
+.suggestions ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.suggestions li {
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.suggestions li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  background: var(--primary-color);
+  border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 1.5rem;
+  }
+  
+  .interestsGrid {
+    gap: 1.5rem;
+  }
+  
+  .categoryCard {
+    padding: 1rem;
+  }
+  
+  .interestItem {
+    padding: 0.8rem;
+  }
+} 
