@@ -1,40 +1,8 @@
 {
   "version": 2,
-  "framework": "nextjs",
-  "buildCommand": "next build",
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
   "installCommand": "npm install",
-  "outputDirectory": ".next",
-  "regions": ["sin1"],
-  "public": false,
-  "cleanUrls": true,
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        }
-      ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/"
-    }
-  ],
-  "env": {
-    "NEXT_PUBLIC_API_URL": "https://ai-dating-app-opc9.vercel.app/api",
-    "NEXT_PUBLIC_APP_URL": "https://ai-dating-app-opc9.vercel.app",
-    "NODE_ENV": "production"
-  }
+  "framework": "nextjs",
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 } 
