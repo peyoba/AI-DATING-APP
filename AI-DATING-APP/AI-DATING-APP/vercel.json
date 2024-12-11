@@ -1,12 +1,16 @@
 {
   "version": 2,
-  "rootDirectory": "ai-dating-app-new",
+  "framework": "nextjs",
   "builds": [
     {
-      "src": "ai-dating-app-new/package.json",
+      "src": "next.config.js",
       "use": "@vercel/next"
     }
   ],
+  "env": {
+    "NEXT_PUBLIC_API_URL": "https://ai-dating-app-opc9.vercel.app/api",
+    "NEXT_PUBLIC_APP_URL": "https://ai-dating-app-opc9.vercel.app"
+  },
   "routes": [
     {
       "src": "/(.*)",

@@ -9,6 +9,7 @@ const nextConfig = {
   // 图片配置
   images: {
     unoptimized: true,
+    domains: ['ai-dating-app-opc9.vercel.app'],
   },
   // 禁用 i18n
   i18n: null,
