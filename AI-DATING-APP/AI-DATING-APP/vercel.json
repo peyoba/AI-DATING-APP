@@ -1,8 +1,6 @@
 {
   "version": 2,
   "framework": "nextjs",
-  "buildCommand": "next build",
-  "outputDirectory": ".next",
   "env": {
     "NEXT_PUBLIC_API_URL": "https://ai-dating-app-opc9.vercel.app/api",
     "NEXT_PUBLIC_APP_URL": "https://ai-dating-app-opc9.vercel.app"
